@@ -4,6 +4,12 @@
 
 <br />
 
+<p align="center">
+  <img width="50%" src="./docs/freshdesk.png?raw=true" alt="Freshdesk Logotype" />
+</p>
+
+<br />
+
 ## Installation 
 
 ```bash
@@ -22,6 +28,9 @@ import FreshdeskWidget from '@personare/react-freshdesk-widget';
 
 * [`url`](#urlProperty)
 * [`type`](#typeProperty)
+* [`formTitle`](#formTitleProperty)
+* [`formHeight`](#formHeightProperty)
+* [`submitThanks`](#submitThanksProperty)
 
 <a name="urlProperty"></a>
 
@@ -32,8 +41,8 @@ An URL of the service of your Freshdesk
 For example:
 
 ```js
-...
 
+...
 render() {
     const urlService = "https://support.freshdesk.com";
     
@@ -41,8 +50,8 @@ render() {
         <FreshdeskWidget url="{urlService}" />
     );
 }
-
 ...
+
 ```
 
 <a name="typeProperty"></a>
@@ -56,7 +65,7 @@ Currently you can perform through two ways:
 1. Through a pop-up where the user must click to display the widget.
 2. Incorporating direct in your HTML.
 
-- Default: incorporated
+*default: incorporated*
 
 For example:
 
@@ -75,6 +84,80 @@ render() {
 ...
 ```
 
+<a name="formTitleProperty"></a>
+
+#### `formTitle`
+
+What will be the title of the form.
+
+*default: Help and support*
+
+For example:
+
+```js
+...
+
+render() {
+    return (
+        <FreshdeskWidget 
+            url="https://support.freshdesk.com"
+            formTitle="This is a custom title"
+        />
+    );
+}
+
+...
+```
+
+<a name="formHeightProperty"></a>
+
+#### `formHeight`
+
+The height of the form.
+
+*default: 500px*
+
+For example:
+
+```js
+...
+
+render() {
+    return (
+        <FreshdeskWidget 
+            url="https://support.freshdesk.com"
+            formHeight="700px"
+        />
+    );
+}
+
+...
+```
+
+<a name="submitThanksProperty"></a>
+
+#### `submitThanks`
+
+The message that appears after the user send feedback.
+
+*default: Thank you, one of our representatives will respond to you soon! =)*
+
+For example:
+
+```js
+...
+
+render() {
+    return (
+        <FreshdeskWidget 
+            url="https://support.freshdesk.com"
+            submitThanks="Thank you!!!"
+        />
+    );
+}
+
+...
+```
 
 ## Development
 
