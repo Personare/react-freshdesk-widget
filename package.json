@@ -1,8 +1,7 @@
 {
   "name": "react-freshdesk-widget",
   "version": "0.1.0",
-  "description": "A component of React for use the Freshdesk Widget ",
-  "private": true,
+  "description": "A component of React for use the Freshdesk Widget",
   "main": "dist/react-freshdesk-widget.js",
   "scripts": {
     "build": "npm run lint && npm run test && npm run dist && npm run ghpages",
