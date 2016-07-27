@@ -6,20 +6,8 @@ import { describe, it, before } from 'mocha';
 import FreshdeskWidget from './../src/FreshdeskWidget';
 
 describe('<FreshdeskWidget />', function FreshdeskWidgetTests() {
-    this.timeout(5000);
-
-    before(() => {
-        const componentDidMount = FreshdeskWidget.prototype.componentDidMount;
-
-        return componentDidMount.calledOnce;
-    });
-
-    it('the state should be equal three after three seconds', done => {
-        const wrapper = mount(<FreshdeskWidget />);
-
-        setTimeout(() => {
-            expect(wrapper.state('count')).to.be.equal(3);
-            done();
-        }, 4000);
+    it('the state of rendered should be equal false componentDidMount', () => {
+        const wrapper = mount(<FreshdeskWidget url="https://support.freshdesk.com" />);
+        expect(wrapper.state('rendered')).to.be.false;
     });
 });

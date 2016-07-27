@@ -1,56 +1,27 @@
 import React, { Component, PropTypes } from 'react';
 
 class FreshdeskWidget extends Component {
-
-    static propTypes = {
-        url: PropTypes.string.isRequired,
-        type: PropTypes.oneOf(['pop-up', 'incorporated']),
-
-        buttonType: PropTypes.oneOf(['text', 'image']),
-        buttonText: PropTypes.string,
-        buttonColor: PropTypes.string,
-        buttonBackgroundColor: PropTypes.string,
-        buttonBackgroundImage: PropTypes.string,
-        buttonPosition: PropTypes.oneOf(['left', 'right', 'top', 'bottom']),
-        buttonOffset: PropTypes.string,
-
-        formTitle: PropTypes.string,
-        submitThanks: PropTypes.string,
-        formHeight: PropTypes.string,
-
-    };
-
-    static defaultProps = {
-        type: 'incorporated',
-        formTitle: 'Help and support',
-        submitThanks: 'Thank you, one of our representatives will respond to you soon! =)',
-        formHeight: '500px',
-
-        buttonType: 'text',
-        buttonText: 'Support',
-        buttonColor: 'white',
-        buttonBackgroundColor: '#015453',
-        buttonPosition: 'top',
-        buttonOffset: '235px'
-    };
-
     constructor(props) {
         super(props);
+
+        this.state = {
+            rendered: false
+        };
     }
 
     componentDidMount() {
         const { type } = this.props;
 
-        this._getFreshdeskWidgetSDK(() => {
-            if ('pop-up' === type) {
-                this._renderPopUp();
+        this.getFreshdeskWidgetSDK(() => {
+            if (type === 'pop-up') {
+                this.renderPopUp();
             } else {
-                this._getStylesheet();
+                this.getStylesheet();
             }
         });
     }
 
-    _getFreshdeskWidgetSDK(callback) {
+    getFreshdeskWidgetSDK(callback) {
         const script = document.createElement('script');
 
         script.src = 'https://s3.amazonaws.com/assets.freshdesk.com/widget/freshwidget.js';
@@ -61,7 +32,15 @@ class FreshdeskWidget extends Component {
         document.body.appendChild(script);
     }
 
-    _renderPopUp() {
+    getStylesheet() {
+        const style = document.createElement('link');
+        style.href = 'https://s3.amazonaws.com/assets.freshdesk.com/widget/freshwidget.css';
+        style.rel = 'stylesheet';
+        style.media = 'screen, projection';
+        document.body.appendChild(style);
+    }
+
+    renderPopUp() {
         const {
             url,
             buttonType,
@@ -78,47 +57,38 @@ class FreshdeskWidget extends Component {
 
         const alignments = { left: 4, right: 2, top: 1, bottom: 3 };
 
-        let params = {
+        const params = {
             queryString: `&widgetType=popup&formTitle=${formTitle}&submitThanks=${submitThanks}`,
-            url: url,
-            utf8: "✓",
-            widgetType: "popup",
+            utf8: '✓',
+            widgetType: 'popup',
             alignment: alignments[buttonPosition],
             offset: buttonOffset,
-            buttonType: buttonType,
-            buttonText: buttonText,
-            buttonColor: buttonColor,
             buttonBg: buttonBackgroundColor,
             backgroundImage: buttonBackgroundImage,
-
-            submitThanks: submitThanks,
-            formHeight: formHeight,
-            formTitle: formTitle
+            url,
+            buttonType,
+            buttonText,
+            buttonColor,
+            submitThanks,
+            formHeight,
+            formTitle
         };
 
-        window.FreshWidget.init("", params);
+        window.FreshWidget.init('', params);
     }
 
-    _getStylesheet() {
-        const style = document.createElement('link');
-        style.href = 'https://s3.amazonaws.com/assets.freshdesk.com/widget/freshwidget.css';
-        style.rel = 'stylesheet';
-        style.media = 'screen, projection';
-        document.body.appendChild(style);
-    }
-
-    render () {
+    render() {
         const { type, url, formTitle, formHeight, submitThanks } = this.props;
 
-        if ('incorporated' === type) {
+        if (type === 'incorporated') {
             const widgetUrl = `${url}/widgets/feedback_widget/new?`;
 
             const queryString = [
                 'widgetType=embedded',
                 'screenshot=no',
-                'formTitle=' + formTitle,
-                'formHeight=' + formHeight,
-                'submitThanks=' + submitThanks
+                `formTitle=${formTitle}`,
+                `formHeight=${formHeight}`,
+                `submitThanks=${submitThanks}`
             ].join('&');
 
             return (
@@ -130,8 +100,8 @@ class FreshdeskWidget extends Component {
                         src={widgetUrl + queryString}
                         scrolling="no"
                         height="500px"
-                        width="100%">
-                    </iframe>
+                        width="100%"
+                    />
                 </div>
             );
         }
@@ -139,5 +109,38 @@ class FreshdeskWidget extends Component {
         return <div id="freshwidget"></div>;
     }
 }
+
+
+FreshdeskWidget.propTypes = {
+    url: PropTypes.string.isRequired,
+    type: PropTypes.oneOf(['pop-up', 'incorporated']),
+
+    buttonType: PropTypes.oneOf(['text', 'image']),
+    buttonText: PropTypes.string,
+    buttonColor: PropTypes.string,
+    buttonBackgroundColor: PropTypes.string,
+    buttonBackgroundImage: PropTypes.string,
+    buttonPosition: PropTypes.oneOf(['left', 'right', 'top', 'bottom']),
+    buttonOffset: PropTypes.string,
+
+    formTitle: PropTypes.string,
+    submitThanks: PropTypes.string,
+    formHeight: PropTypes.string,
+
+};
+
+FreshdeskWidget.defaultProps = {
+    type: 'incorporated',
+    formTitle: 'Help and support',
+    submitThanks: 'Thank you, one of our representatives will respond to you soon! =)',
+    formHeight: '500px',
+
+    buttonType: 'text',
+    buttonText: 'Support',
+    buttonColor: 'white',
+    buttonBackgroundColor: '#015453',
+    buttonPosition: 'top',
+    buttonOffset: '235px'
+};
 
 export default FreshdeskWidget;
