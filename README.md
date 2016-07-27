@@ -6,18 +6,75 @@
 
 ## Installation 
 
-Ensure you've [Node.js](https://nodejs.org) version >= 6 installed, then run the following command:
-
-```
-$ npm install @personare/react-freshdesk-widget --save
+```bash
+npm install @personare/react-freshdesk-widget --save
 ```
 
-## Usage
+## Basic Usage
+
 ```js
 import FreshdeskWidget from '@personare/react-freshdesk-widget';
 
 <FreshdeskWidget url="https://support.freshdesk.com" />
 ```
+
+## Props
+
+* [`url`](#urlProperty)
+* [`type`](#typeProperty)
+
+<a name="urlProperty"></a>
+
+#### `url` (required)
+
+An URL of the service of your Freshdesk
+
+For example:
+
+```js
+...
+
+render() {
+    const urlService = "https://support.freshdesk.com";
+    
+    return (
+        <FreshdeskWidget url="{urlService}" />
+    );
+}
+
+...
+```
+
+<a name="typeProperty"></a>
+
+#### `type` - one of ['pop-up', 'incorporated']
+
+The type of widget you want to insert the page.
+
+Currently you can perform through two ways:
+
+1. Through a pop-up where the user must click to display the widget.
+2. Incorporating direct in your HTML.
+
+- Default: incorporated
+
+For example:
+
+```js
+...
+
+render() {
+    return (
+        <FreshdeskWidget 
+            url="https://support.freshdesk.com"
+            type="pop-up"
+        />
+    );
+}
+
+...
+```
+
 
 ## Development
 
