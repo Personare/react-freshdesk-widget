@@ -1,0 +1,53 @@
+{
+  "name": "react-freshdesk-widget",
+  "version": "0.1.0",
+  "description": "A component of React for use the Freshdesk Widget ",
+  "private": true,
+  "main": "dist/react-freshdesk-widget.js",
+  "scripts": {
+    "build": "npm run lint && npm run test && npm run dist && npm run ghpages",
+    "dist": "webpack -p --config .storybook/webpack.dist.config.js",
+    "ghpages": "make ghp-storybook",
+    "lint": "eslint src",
+    "prepush": "npm run lint && npm run test",
+    "storybook": "start-storybook -p 9001",
+    "serve": "npm run storybook",
+    "test": "mocha --require tests/mock-browser.js --require ignore-styles --compilers js:babel-core/register --recursive tests/*test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/.../react-freshdesk-widget.git"
+  },
+  "bugs": {
+    "url": "https://github.com/.../react-freshdesk-widget/issues"
+  },
+  "homepage": "https://github.com/.../react-freshdesk-widget#readme",
+  "devDependencies": {
+    "@kadira/storybook": "^1.38.0",
+    "babel-core": "^6.10.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-airbnb": "^2.0.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-register": "^6.9.0",
+    "chai": "^3.5.0",
+    "enzyme": "^2.4.1",
+    "eslint": "^3.1.0",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-import": "^1.10.3",
+    "eslint-plugin-jsx-a11y": "^2.0.1",
+    "eslint-plugin-react": "^5.2.2",
+    "husky": "^0.11.5",
+    "jsdom": "^9.4.1",
+    "mocha": "^2.5.3",
+    "raw-loader": "^0.5.1",
+    "react-addons-test-utils": "^15.2.1",
+    "style-loader": "^0.13.1"
+  },
+  "dependencies": {
+    "react": "15.2.1",
+    "react-dom": "15.2.1"
+  },
+  "engine": "node >= 6.0.0"
+}
