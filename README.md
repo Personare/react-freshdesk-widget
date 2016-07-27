@@ -1,4 +1,4 @@
-# react-freshdesk-widget
+# react-freshdesk-widget [![Build Status](https://scrutinizer-ci.com/g/Personare/react-freshdesk-widget/badges/build.png?b=master&s=6b40b4cc955a743a38efda66164a0ee2659d945f)](https://scrutinizer-ci.com/g/Personare/react-freshdesk-widget/build-status/master)
 
 > A component of React for use the Freshdesk Widget 
 
@@ -9,14 +9,14 @@
 Ensure you've [Node.js](https://nodejs.org) version >= 6 installed, then run the following command:
 
 ```
-$ npm install react-freshdesk-widget --save
+$ npm install @personare/react-freshdesk-widget --save
 ```
 
 ## Usage
 ```js
-import FreshdeskWidget from 'FreshdeskWidget';
+import FreshdeskWidget from '@personare/react-freshdesk-widget';
 
-<FreshdeskWidget />
+<FreshdeskWidget url="https://support.freshdesk.com" />
 ```
 
 ## Development
