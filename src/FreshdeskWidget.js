@@ -95,10 +95,6 @@ class FreshdeskWidget extends Component {
                 `submitThanks=${submitThanks}`
             ].join('&');
 
-            this.setState({
-                rendered: true
-            });
-
             return (
                 <div>
                     <iframe
