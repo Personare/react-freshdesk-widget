@@ -53,7 +53,12 @@ class FreshdeskWidget extends Component {
             formHeight
         } = this.props;
 
-        const alignments = { left: 4, right: 2, top: 1, bottom: 3 };
+        const alignments = {
+            left: 4,
+            right: 2,
+            top: 1,
+            bottom: 3
+        };
 
         const params = {
             queryString: `&widgetType=popup&formTitle=${formTitle}&submitThanks=${submitThanks}`,
