@@ -4,9 +4,8 @@
   "description": "A component of React for use the Freshdesk Widget",
   "main": "dist/react-freshdesk-widget.js",
   "scripts": {
-    "build": "npm run lint && npm run test && npm run dist && npm run ghpages",
+    "build": "npm run lint && npm run test && npm run dist",
     "dist": "webpack -p --config .storybook/webpack.dist.config.js",
-    "ghpages": "make ghp-storybook",
     "lint": "eslint src",
     "prepush": "npm run lint && npm run test",
     "storybook": "start-storybook -p 9001",
