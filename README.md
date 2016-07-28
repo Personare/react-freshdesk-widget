@@ -21,16 +21,30 @@ npm install @personare/react-freshdesk-widget --save
 ```js
 import FreshdeskWidget from '@personare/react-freshdesk-widget';
 
-<FreshdeskWidget url="https://support.freshdesk.com" />
+...
+render() {
+    return (
+        <FreshdeskWidget url="https://support.freshdesk.com" />
+    );
+}
+...
 ```
 
 ## Props
 
-* [`url`](#urlProperty)
-* [`type`](#typeProperty)
-* [`formTitle`](#formTitleProperty)
-* [`formHeight`](#formHeightProperty)
-* [`submitThanks`](#submitThanksProperty)
+* [`url`](#urlProperty) - *required*
+* [`type`](#typeProperty) - *one of ['pop-up', 'incorporated']*
+* [`formTitle`](#formTitleProperty) - *default: Help and support*
+* [`formHeight`](#formHeightProperty) - *default: 500px*
+* [`submitThanks`](#submitThanksProperty) - *default: Thank you, one of our representatives will respond to you soon! =)*
+* [`buttonType`](#buttonTypeProperty) - *only if the type property are equal 'pop-up'*
+* [`buttonText`](#buttonTextProperty) - *only if the type property are equal 'pop-up'*
+* [`buttonColor`](#buttonColorProperty) - *only if the type property are equal 'pop-up'*
+* [`buttonOffset`](#buttonOffsetProperty) - *only if the type property are equal 'pop-up'*
+* [`buttonPosition`](#buttonPositionProperty) - *only if the type property are equal 'pop-up'*
+* [`buttonBackgroundColor`](#buttonBackgroundColorProperty) - *only if the type property are equal 'pop-up'*
+* [`buttonBackgroundImage`](#buttonBackgroundImageProperty) - *only if the type property are equal 'pop-up'*
+
 
 <a name="urlProperty"></a>
 
@@ -41,17 +55,13 @@ An URL of the service of your Freshdesk
 For example:
 
 ```js
-
 ...
 render() {
-    const urlService = "https://support.freshdesk.com";
-    
     return (
-        <FreshdeskWidget url="{urlService}" />
+        <FreshdeskWidget url="https://support.freshdesk.com" />
     );
 }
 ...
-
 ```
 
 <a name="typeProperty"></a>
@@ -71,7 +81,6 @@ For example:
 
 ```js
 ...
-
 render() {
     return (
         <FreshdeskWidget 
@@ -80,13 +89,12 @@ render() {
         />
     );
 }
-
 ...
 ```
 
 <a name="formTitleProperty"></a>
 
-#### `formTitle`
+#### `formTitle` (optional)
 
 What will be the title of the form.
 
@@ -96,7 +104,6 @@ For example:
 
 ```js
 ...
-
 render() {
     return (
         <FreshdeskWidget 
@@ -105,7 +112,6 @@ render() {
         />
     );
 }
-
 ...
 ```
 
@@ -121,7 +127,6 @@ For example:
 
 ```js
 ...
-
 render() {
     return (
         <FreshdeskWidget 
@@ -130,7 +135,6 @@ render() {
         />
     );
 }
-
 ...
 ```
 
@@ -146,7 +150,6 @@ For example:
 
 ```js
 ...
-
 render() {
     return (
         <FreshdeskWidget 
@@ -155,7 +158,195 @@ render() {
         />
     );
 }
+...
+```
 
+<a name="buttonTypeProperty"></a>
+
+#### `buttonType` - one of ['text', 'image']
+
+The type of button when use pop-up.
+
+*default: text*
+
+Note: When do you use an image type is necessary to pass `buttonBackgroundImage` property.
+
+For example:
+
+```js
+...
+render() {
+    return (
+        <FreshdeskWidget 
+            url="https://support.freshdesk.com"
+            type="pop-up"
+            buttonType="image"
+            buttonBackgroundImage="my-custom-button.png"
+        />
+    );
+}
+...
+```
+
+<a name="buttonTextProperty"></a>
+
+#### `buttonText` - (optional)
+
+The text of button.
+
+*default: Support*
+
+For example:
+
+```js
+...
+render() {
+    return (
+        <FreshdeskWidget 
+            url="https://support.freshdesk.com"
+            type="pop-up"
+            buttonType="text"
+            buttonText="Send feedback!"
+        />
+    );
+}
+...
+```
+
+<a name="buttonColorProperty"></a>
+
+#### `buttonColor` - (optional)
+
+The font color of button text.
+
+*default: white*
+
+For example:
+
+```js
+...
+render() {
+    return (
+        <FreshdeskWidget 
+            url="https://support.freshdesk.com"
+            type="pop-up"
+            buttonType="text"
+            buttonText="Send feedback!"
+            buttonColor="yellow"
+        />
+    );
+}
+...
+```
+
+<a name="buttonBackgroundColorProperty"></a>
+
+#### `buttonBackgroundColor` - (optional)
+
+The background-color of button.
+
+*default: #015453*
+
+For example:
+
+```js
+...
+render() {
+    return (
+        <FreshdeskWidget 
+            url="https://support.freshdesk.com"
+            type="pop-up"
+            buttonType="text"
+            buttonText="Send feedback!"
+            buttonColor="yellow"
+            buttonBackgroundColor="#012471"
+        />
+    );
+}
+...
+```
+
+<a name="buttonPositionProperty"></a>
+
+#### `buttonPosition` - one of ['left', 'right', 'top', 'bottom']
+
+The position of button in the window.
+
+*default: top*
+
+For example:
+
+```js
+...
+render() {
+    return (
+        <FreshdeskWidget 
+            url="https://support.freshdesk.com"
+            type="pop-up"
+            buttonType="text"
+            buttonText="Send feedback!"
+            buttonColor="yellow"
+            buttonBackgroundColor="#012471"
+            buttonPosition="bottom"
+        />
+    );
+}
+...
+```
+
+<a name="buttonOffsetProperty"></a>
+
+#### `buttonOffset` - (optional)
+
+The offset of button.
+
+*default: 235px*
+
+For example:
+
+```js
+...
+render() {
+    return (
+        <FreshdeskWidget 
+            url="https://support.freshdesk.com"
+            type="pop-up"
+            buttonType="text"
+            buttonText="Send feedback!"
+            buttonColor="yellow"
+            buttonBackgroundColor="#012471"
+            buttonPosition="bottom"
+            buttonOffset="150px"
+        />
+    );
+}
+...
+```
+
+<a name="buttonBackgroundImageProperty"></a>
+
+#### `buttonBackgroundImage` - (optional)
+
+When you use the `buttonType` with image, need to specify the URL and this property is for this.
+
+*default: 235px*
+
+For example:
+
+```js
+...
+render() {
+    return (
+        <FreshdeskWidget 
+            url="https://support.freshdesk.com"
+            type="pop-up"
+            buttonType="image"
+            buttonBackgroundImage="http://localhost/my-custom-image.png"
+            buttonPosition="bottom"
+            buttonOffset="150px"
+        />
+    );
+}
 ...
 ```
 
