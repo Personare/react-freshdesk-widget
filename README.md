@@ -30,6 +30,10 @@ render() {
 ...
 ```
 
+<p align="center">
+  <img width="100%" src="./docs/incorporated-desktop.png?raw=true" alt="Freshdesk Incorporated Widget" />
+</p>
+
 ## Props
 
 * [`url`](#urlProperty) - *required*
