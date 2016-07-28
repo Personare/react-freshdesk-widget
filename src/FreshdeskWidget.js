@@ -15,8 +15,6 @@ class FreshdeskWidget extends Component {
         this.getFreshdeskWidgetSDK(() => {
             if (type === 'pop-up') {
                 this.renderPopUp();
-            } else {
-                this.getStylesheet();
             }
         });
     }
@@ -75,12 +73,18 @@ class FreshdeskWidget extends Component {
         };
 
         window.FreshWidget.init('', params);
+
+        this.setState({
+            rendered: true
+        });
     }
 
     render() {
         const { type, url, formTitle, formHeight, submitThanks } = this.props;
 
         if (type === 'incorporated') {
+            this.getStylesheet();
+
             const widgetUrl = `${url}/widgets/feedback_widget/new?`;
 
             const queryString = [
@@ -90,6 +94,10 @@ class FreshdeskWidget extends Component {
                 `formHeight=${formHeight}`,
                 `submitThanks=${submitThanks}`
             ].join('&');
+
+            this.setState({
+                rendered: true
+            });
 
             return (
                 <div>
@@ -114,7 +122,6 @@ class FreshdeskWidget extends Component {
 FreshdeskWidget.propTypes = {
     url: PropTypes.string.isRequired,
     type: PropTypes.oneOf(['pop-up', 'incorporated']),
-
     buttonType: PropTypes.oneOf(['text', 'image']),
     buttonText: PropTypes.string,
     buttonColor: PropTypes.string,
@@ -122,11 +129,9 @@ FreshdeskWidget.propTypes = {
     buttonBackgroundImage: PropTypes.string,
     buttonPosition: PropTypes.oneOf(['left', 'right', 'top', 'bottom']),
     buttonOffset: PropTypes.string,
-
     formTitle: PropTypes.string,
     submitThanks: PropTypes.string,
-    formHeight: PropTypes.string,
-
+    formHeight: PropTypes.string
 };
 
 FreshdeskWidget.defaultProps = {
@@ -134,7 +139,6 @@ FreshdeskWidget.defaultProps = {
     formTitle: 'Help and support',
     submitThanks: 'Thank you, one of our representatives will respond to you soon! =)',
     formHeight: '500px',
-
     buttonType: 'text',
     buttonText: 'Support',
     buttonColor: 'white',
