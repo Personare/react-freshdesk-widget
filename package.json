@@ -4,8 +4,9 @@
   "description": "A component of React for use the Freshdesk Widget",
   "main": "dist/react-freshdesk-widget.js",
   "scripts": {
-    "build": "npm run lint && npm run test && npm run dist",
+    "build": "npm run lint && npm run test && npm run dist && npm run ghpages",
     "dist": "webpack -p --config .storybook/webpack.dist.config.js",
+    "ghpages": "storybook-to-ghpages",
     "lint": "eslint src",
     "prepush": "npm run lint && npm run test",
     "storybook": "start-storybook -p 9001",
@@ -22,6 +23,7 @@
   "homepage": "https://github.com/Personare/react-freshdesk-widget#readme",
   "devDependencies": {
     "@kadira/storybook": "^1.38.0",
+    "@kadira/storybook-deployer": "^1.0.0",
     "babel-core": "^6.10.4",
     "babel-loader": "^6.2.4",
     "babel-preset-airbnb": "^2.0.0",
