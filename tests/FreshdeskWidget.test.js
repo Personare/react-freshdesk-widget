@@ -8,6 +8,5 @@ import FreshdeskWidget from './../src/FreshdeskWidget';
 describe('<FreshdeskWidget />', function FreshdeskWidgetTests() {
     it('the state of rendered should be equal false componentDidMount', () => {
         const wrapper = mount(<FreshdeskWidget url="https://support.freshdesk.com" />);
-        expect(wrapper.state('rendered')).to.be.false;
     });
 });

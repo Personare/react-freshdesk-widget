@@ -4,10 +4,6 @@ class FreshdeskWidget extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            rendered: false
-        };
-
         this.renderPopUp = this.renderPopUp.bind(this);
         this.renderWithChildren = this.renderWithChildren.bind(this);
         this.renderIncorporated = this.renderIncorporated.bind(this);
@@ -35,38 +31,41 @@ class FreshdeskWidget extends Component {
     }
 
     renderWithChildren() {
+        const {
+            url,
+            formTitle,
+            formHeight,
+            submitThanks
+        } = this.props;
+
+        const queryString = `&widgetType=popup&formTitle=${formTitle}&submitThanks=${submitThanks}`;
+
+        const params = {
+            utf8: '✓',
+            widgetType: 'popup',
+            url,
+            formTitle,
+            formHeight,
+            submitThanks,
+            queryString,
+            // thanks freshdesk for this
+            offset: '-3000px'
+        };
+
         const handleClick = () => {
             this.getFreshdeskWidgetSDK(() => {
-                const {
-                    url,
-                    formTitle,
-                    formHeight,
-                    submitThanks
-                } = this.props;
-
-                const params = {
-                    queryString: `&widgetType=popup&formTitle=${formTitle}&submitThanks=${submitThanks}`,
-                    utf8: '✓',
-                    widgetType: 'popup',
-                    url,
-                    formTitle,
-                    formHeight,
-                    submitThanks,
-
-                    // thanks freshdesk for this
-                    offset: '-3000px'
-                };
-
-                FreshWidget.init('', params);
+                window.FreshWidget.init('', params);
 
                 setTimeout(() => {
-                    FreshWidget.create();
-                    FreshWidget.show();
+                    window.FreshWidget.create();
+                    window.FreshWidget.show();
                 }, 100);
             });
         };
 
-        const childrenWithHandleClick = React.cloneElement(this.props.children, {
+        const childrenWithHandleClick = React.cloneElement(
+            this.props.children,
+            {
                 onClick: handleClick.bind(this)
             }
         );
@@ -75,44 +74,41 @@ class FreshdeskWidget extends Component {
     }
 
     renderPopUp() {
-        this.getFreshdeskWidgetSDK(() => {
-            const {
-                url,
-                buttonType,
-                buttonText,
-                buttonColor,
-                buttonBackgroundColor,
-                buttonBackgroundImage,
-                buttonPosition,
-                buttonOffset,
-                formTitle,
-                submitThanks,
-                formHeight
-            } = this.props;
+        const {
+            url,
+            buttonType,
+            buttonText,
+            buttonColor,
+            buttonBackgroundColor,
+            buttonBackgroundImage,
+            buttonPosition,
+            buttonOffset,
+            formTitle,
+            submitThanks,
+            formHeight
+        } = this.props;
 
-            const params = {
-                queryString: `&widgetType=popup&formTitle=${formTitle}&submitThanks=${submitThanks}`,
-                utf8: '✓',
-                widgetType: 'popup',
-                alignment: this.getAlignmentByPositionLabel(buttonPosition),
-                offset: buttonOffset,
-                buttonBg: buttonBackgroundColor,
-                backgroundImage: buttonBackgroundImage,
-                url,
-                buttonType,
-                buttonText,
-                buttonColor,
-                submitThanks,
-                formHeight,
-                formTitle
-            };
+        const queryString = `&widgetType=popup&formTitle=${formTitle}&submitThanks=${submitThanks}`;
+        const params = {
+            utf8: '✓',
+            widgetType: 'popup',
+            alignment: this.getAlignmentByPositionLabel(buttonPosition),
+            offset: buttonOffset,
+            buttonBg: buttonBackgroundColor,
+            backgroundImage: buttonBackgroundImage,
+            url,
+            buttonType,
+            buttonText,
+            buttonColor,
+            submitThanks,
+            formHeight,
+            formTitle,
+            queryString
+        };
 
-            FreshWidget.init('', params);
-        });
+        this.getFreshdeskWidgetSDK(() => window.FreshWidget.init('', params));
 
-        return (
-            <div id="freshdesk"></div>
-        )
+        return <div id="freshdesk"></div>;
     }
 
     renderIncorporated() {
@@ -154,9 +150,9 @@ class FreshdeskWidget extends Component {
 
         if (hasChildElement) {
             return this.renderWithChildren();
-        } else {
-            return this.renderPopUp();
         }
+
+        return this.renderPopUp();
     }
 }
 
@@ -173,7 +169,12 @@ FreshdeskWidget.propTypes = {
     buttonOffset: PropTypes.string,
     formTitle: PropTypes.string,
     submitThanks: PropTypes.string,
-    formHeight: PropTypes.string
+    formHeight: PropTypes.string,
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ])
+
 };
 
 FreshdeskWidget.defaultProps = {
@@ -186,7 +187,8 @@ FreshdeskWidget.defaultProps = {
     buttonColor: 'white',
     buttonBackgroundColor: '#015453',
     buttonPosition: 'top',
-    buttonOffset: '235px'
+    buttonOffset: '235px',
+    children: null
 };
 
 export default FreshdeskWidget;
