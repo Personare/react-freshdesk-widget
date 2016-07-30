@@ -7,16 +7,10 @@ class FreshdeskWidget extends Component {
         this.state = {
             rendered: false
         };
-    }
 
-    componentDidMount() {
-        const { type } = this.props;
-
-        this.getFreshdeskWidgetSDK(() => {
-            if (type === 'pop-up') {
-                this.renderPopUp();
-            }
-        });
+        this.renderPopUp = this.renderPopUp.bind(this);
+        this.renderWithChildren = this.renderWithChildren.bind(this);
+        this.renderIncorporated = this.renderIncorporated.bind(this);
     }
 
     getFreshdeskWidgetSDK(callback) {
@@ -24,35 +18,12 @@ class FreshdeskWidget extends Component {
 
         script.src = 'https://s3.amazonaws.com/assets.freshdesk.com/widget/freshwidget.js';
         script.type = 'text/javascript';
-        script.async = true;
         script.onload = callback;
 
         document.body.appendChild(script);
     }
 
-    getStylesheet() {
-        const style = document.createElement('link');
-        style.href = 'https://s3.amazonaws.com/assets.freshdesk.com/widget/freshwidget.css';
-        style.rel = 'stylesheet';
-        style.media = 'screen, projection';
-        document.body.appendChild(style);
-    }
-
-    renderPopUp() {
-        const {
-            url,
-            buttonType,
-            buttonText,
-            buttonColor,
-            buttonBackgroundColor,
-            buttonBackgroundImage,
-            buttonPosition,
-            buttonOffset,
-            formTitle,
-            submitThanks,
-            formHeight
-        } = this.props;
-
+    getAlignmentByPositionLabel(label) {
         const alignments = {
             left: 4,
             right: 2,
@@ -60,62 +31,132 @@ class FreshdeskWidget extends Component {
             bottom: 3
         };
 
-        const params = {
-            queryString: `&widgetType=popup&formTitle=${formTitle}&submitThanks=${submitThanks}`,
-            utf8: '✓',
-            widgetType: 'popup',
-            alignment: alignments[buttonPosition],
-            offset: buttonOffset,
-            buttonBg: buttonBackgroundColor,
-            backgroundImage: buttonBackgroundImage,
-            url,
-            buttonType,
-            buttonText,
-            buttonColor,
-            submitThanks,
-            formHeight,
-            formTitle
+        return alignments[label];
+    }
+
+    renderWithChildren() {
+        const handleClick = () => {
+            this.getFreshdeskWidgetSDK(() => {
+                const {
+                    url,
+                    formTitle,
+                    formHeight,
+                    submitThanks
+                } = this.props;
+
+                const params = {
+                    queryString: `&widgetType=popup&formTitle=${formTitle}&submitThanks=${submitThanks}`,
+                    utf8: '✓',
+                    widgetType: 'popup',
+                    url,
+                    formTitle,
+                    formHeight,
+                    submitThanks,
+
+                    // thanks freshdesk for this
+                    offset: '-3000px'
+                };
+
+                FreshWidget.init('', params);
+
+                setTimeout(() => {
+                    FreshWidget.create();
+                    FreshWidget.show();
+                }, 100);
+            });
         };
 
-        window.FreshWidget.init('', params);
+        const childrenWithHandleClick = React.cloneElement(this.props.children, {
+                onClick: handleClick.bind(this)
+            }
+        );
 
-        this.setState({
-            rendered: true
+        return <div>{childrenWithHandleClick}</div>;
+    }
+
+    renderPopUp() {
+        this.getFreshdeskWidgetSDK(() => {
+            const {
+                url,
+                buttonType,
+                buttonText,
+                buttonColor,
+                buttonBackgroundColor,
+                buttonBackgroundImage,
+                buttonPosition,
+                buttonOffset,
+                formTitle,
+                submitThanks,
+                formHeight
+            } = this.props;
+
+            const params = {
+                queryString: `&widgetType=popup&formTitle=${formTitle}&submitThanks=${submitThanks}`,
+                utf8: '✓',
+                widgetType: 'popup',
+                alignment: this.getAlignmentByPositionLabel(buttonPosition),
+                offset: buttonOffset,
+                buttonBg: buttonBackgroundColor,
+                backgroundImage: buttonBackgroundImage,
+                url,
+                buttonType,
+                buttonText,
+                buttonColor,
+                submitThanks,
+                formHeight,
+                formTitle
+            };
+
+            FreshWidget.init('', params);
         });
+
+        return (
+            <div id="freshdesk"></div>
+        )
+    }
+
+    renderIncorporated() {
+        const { url, formTitle, formHeight, submitThanks } = this.props;
+
+        const widgetUrl = `${url}/widgets/feedback_widget/new?`;
+
+        const queryString = [
+            'widgetType=embedded',
+            'screenshot=no',
+            `formTitle=${formTitle}`,
+            `formHeight=${formHeight}`,
+            `submitThanks=${submitThanks}`
+        ].join('&');
+
+        return (
+            <div>
+                <iframe
+                    className="freshwidget-embedded-form"
+                    frameBorder="0"
+                    id="freshwidget-embedded-form"
+                    src={widgetUrl + queryString}
+                    scrolling="no"
+                    height="500px"
+                    width="100%"
+                />
+            </div>
+        );
     }
 
     render() {
-        const { type, url, formTitle, formHeight, submitThanks } = this.props;
+        const hasChildElement = (React.Children.count(this.props.children) >= 1);
+
+        const { type } = this.props;
 
         if (type === 'incorporated') {
-            this.getStylesheet();
-
-            const widgetUrl = `${url}/widgets/feedback_widget/new?`;
-
-            const queryString = [
-                'widgetType=embedded',
-                'screenshot=no',
-                `formTitle=${formTitle}`,
-                `formHeight=${formHeight}`,
-                `submitThanks=${submitThanks}`
-            ].join('&');
-
-            return (
-                <div>
-                    <iframe
-                        className="freshwidget-embedded-form"
-                        frameBorder="0"
-                        id="freshwidget-embedded-form"
-                        src={widgetUrl + queryString}
-                        scrolling="no"
-                        height="500px"
-                        width="100%"
-                    />
-                </div>
-            );
+            return this.renderIncorporated();
         }
 
-        return <div id="freshwidget"></div>;
+        if (hasChildElement) {
+            return this.renderWithChildren();
+        } else {
+            return this.renderPopUp();
+        }
     }
 }
 
