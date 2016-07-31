@@ -132,7 +132,7 @@ class FreshdeskWidget extends Component {
                     id="freshwidget-embedded-form"
                     src={widgetUrl + queryString}
                     scrolling="no"
-                    height="500px"
+                    height={formHeight}
                     width="100%"
                 />
             </div>
@@ -174,7 +174,6 @@ FreshdeskWidget.propTypes = {
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
     ])
-
 };
 
 FreshdeskWidget.defaultProps = {
