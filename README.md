@@ -38,6 +38,26 @@ render() {
   <img width="100%" src="./docs/incorporated-desktop.png?raw=true" alt="Freshdesk Incorporated Widget" />
 </p>
 
+## With custom button
+
+```js
+import FreshdeskWidget from '@personare/react-freshdesk-widget';
+
+...
+render() {
+    return (
+        <FreshdeskWidget url="https://support.freshdesk.com" type="pop-up">
+            <button>Send Feedback</button>
+        </FreshdeskWidget>
+    );
+}
+...
+```
+
+<p align="center">
+  <img width="100%" src="./docs/custom-button.gif?raw=true" alt="Freshdesk with custom button" />
+</p>
+
 ## Props
 
 * [`url`](#urlProperty) - *required*
