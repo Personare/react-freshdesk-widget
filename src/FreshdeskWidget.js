@@ -9,6 +9,14 @@ class FreshdeskWidget extends Component {
         this.renderIncorporated = this.renderIncorporated.bind(this);
     }
 
+    componentWillUnmount() {
+        const { type } = this.props;
+
+        if (type === 'pop-up') {
+            window.FreshWidget.destroy();
+        }
+    }
+
     getFreshdeskWidgetSDK(callback) {
         const script = document.createElement('script');
 
@@ -89,6 +97,7 @@ class FreshdeskWidget extends Component {
         } = this.props;
 
         const queryString = `&widgetType=popup&formTitle=${formTitle}&submitThanks=${submitThanks}`;
+
         const params = {
             utf8: '✓',
             widgetType: 'popup',
@@ -140,13 +149,13 @@ class FreshdeskWidget extends Component {
     }
 
     render() {
-        const hasChildElement = (React.Children.count(this.props.children) >= 1);
-
         const { type } = this.props;
 
         if (type === 'incorporated') {
             return this.renderIncorporated();
         }
+
+        const hasChildElement = (React.Children.count(this.props.children) >= 1);
 
         if (hasChildElement) {
             return this.renderWithChildren();

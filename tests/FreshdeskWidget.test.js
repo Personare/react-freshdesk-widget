@@ -57,5 +57,4 @@ describe('<FreshdeskWidget />', function FreshdeskWidgetTests() {
             wrapper.find('iframe').node.getAttribute('src')
         ).to.equal(`${mockWidgetUrl}${mockQueryString}`);
     });
-
 });
