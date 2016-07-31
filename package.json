@@ -1,6 +1,6 @@
 {
   "name": "@personare/react-freshdesk-widget",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A component of React for use the Freshdesk Widget",
   "main": "dist/react-freshdesk-widget.js",
   "scripts": {
@@ -13,6 +13,12 @@
     "serve": "npm run storybook",
     "test": "mocha --require tests/mock-browser.js --compilers js:babel-core/register --recursive tests/*test.js"
   },
+  "keywords": [
+    "freshdesk",
+    "widget",
+    "freshdesk-widget",
+    "freshwidget"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Personare/react-freshdesk-widget.git"
