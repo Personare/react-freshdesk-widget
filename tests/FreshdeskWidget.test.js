@@ -2,7 +2,6 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow, mount } from 'enzyme';
 import { describe, it, before } from 'mocha';
-import sinon from 'sinon';
 
 import FreshdeskWidget from './../src/FreshdeskWidget';
 
