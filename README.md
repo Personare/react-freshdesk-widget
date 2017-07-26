@@ -72,6 +72,7 @@ render() {
 * [`buttonPosition`](#buttonPositionProperty) - *only if the type property are equal 'pop-up'*
 * [`buttonBackgroundColor`](#buttonBackgroundColorProperty) - *only if the type property are equal 'pop-up'*
 * [`buttonBackgroundImage`](#buttonBackgroundImageProperty) - *only if the type property are equal 'pop-up'*
+* [`autofill`](#autofillProperty) - *allows autofilling fields*
 
 
 <a name="urlProperty"></a>
@@ -372,6 +373,29 @@ render() {
             buttonBackgroundImage="http://localhost/my-custom-image.png"
             buttonPosition="bottom"
             buttonOffset="150px"
+        />
+    );
+}
+...
+```
+
+<a name="autofillProperty"></a>
+
+#### `autofill` - (optional)
+
+If you want to fill any of the fields in with data from your application you
+can do that here. This doesn't work for custom fields.
+
+For example:
+
+```js
+...
+render() {
+    return (
+        <FreshdeskWidget 
+            url="https://support.freshdesk.com"
+            type="pop-up"
+            autofill={{ requester: user.email }}
         />
     );
 }
