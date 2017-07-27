@@ -17,7 +17,7 @@
 ## Installation 
 
 ```bash
-yarn @personare/react-freshdesk-widget
+yarn add @personare/react-freshdesk-widget
 ```
 
 ## Basic Usage
