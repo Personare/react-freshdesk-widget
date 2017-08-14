@@ -1,6 +1,6 @@
 {
   "name": "@personare/react-freshdesk-widget",
-  "version": "0.2.2",
+  "version": "0.2.4",
   "description": "A component of React for use the Freshdesk Widget",
   "main": "dist/react-freshdesk-widget.js",
   "scripts": {
@@ -49,7 +49,7 @@
     "jsdom": "^9.4.1",
     "mocha": "^2.5.3",
     "raw-loader": "^0.5.1",
-    "react-addons-test-utils": "^15.2.1",
+    "react-addons-test-utils": "15.2.1",
     "style-loader": "^0.13.1"
   },
   "dependencies": {

@@ -17,7 +17,7 @@
 ## Installation 
 
 ```bash
-npm install @personare/react-freshdesk-widget --save
+yarn add @personare/react-freshdesk-widget
 ```
 
 ## Basic Usage
@@ -407,7 +407,7 @@ render() {
 To start developing in the project run:
 
 ```bash
-npm run serve
+yarn serve
 ```
 
 Then ready at `http://localhost:9001`.
@@ -417,7 +417,7 @@ Then ready at `http://localhost:9001`.
 Just run:
 
 ```bash
-npm run tests
+yarn test
 ```
 
 <br />
