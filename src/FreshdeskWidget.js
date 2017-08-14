@@ -46,6 +46,7 @@ class FreshdeskWidget extends Component {
 
         const autofills = Object.entries(autofill).
             map(([field, value]) => (`helpdesk_ticket[${field}]=${value}`));
+
         const queryString = [
             '&widgetType=popup',
             `formTitle=${formTitle}`,
@@ -101,6 +102,7 @@ class FreshdeskWidget extends Component {
 
         const autofills = Object.entries(autofill).
             map(([field, value]) => (`helpdesk_ticket[${field}]=${value}`));
+
         const queryString = [
             '&widgetType=popup',
             `formTitle=${formTitle}`,
@@ -137,6 +139,7 @@ class FreshdeskWidget extends Component {
 
         const autofills = Object.entries(autofill).
             map(([field, value]) => (`helpdesk_ticket[${field}]=${value}`));
+
         const queryString = [
             'widgetType=embedded',
             'screenshot=no',
