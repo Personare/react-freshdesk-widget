@@ -19,7 +19,7 @@ class FreshdeskWidget extends Component {
     componentWillUnmount() {
         const { type } = this.props;
 
-        if (type === 'pop-up') {
+        if (type === 'pop-up' && window.FreshWidget) {
             window.FreshWidget.destroy();
         }
     }
