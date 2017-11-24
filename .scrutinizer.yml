@@ -1,8 +1,7 @@
 build:
   environment:
-    node: '6.0.0'
+    node: '6.2.0'
 
   tests:
     override:
-      - npm run lint
       - npm run test
