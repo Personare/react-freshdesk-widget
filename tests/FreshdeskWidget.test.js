@@ -1,7 +1,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow, mount } from 'enzyme';
-import { describe, it, before } from 'mocha';
+import { describe, it } from 'mocha';
 
 import FreshdeskWidget from './../src/FreshdeskWidget';
 
@@ -29,9 +29,9 @@ describe('<FreshdeskWidget />', function FreshdeskWidgetTests() {
     it('should be rendered an iframe with a correct src', () => {
         const supportUrl = 'https://support.freshdesk.com';
 
-        const formTitle = "Help here";
-        const formHeight = "200px";
-        const submitThanks = "Fine";
+        const formTitle = 'Help here';
+        const formHeight = '200px';
+        const submitThanks = 'Fine';
 
         const wrapper = mount(
             <FreshdeskWidget
@@ -55,5 +55,18 @@ describe('<FreshdeskWidget />', function FreshdeskWidgetTests() {
         expect(
             wrapper.find('iframe').node.getAttribute('src')
         ).to.equal(`${mockWidgetUrl}${mockQueryString}`);
+    });
+
+    it('should automatically fill in fields correctly.', () => {
+        const wrapper = mount(
+            <FreshdeskWidget
+                url="https://support.freshdesk.com"
+                autofill={{ requester: 'test@example.com' }}
+            />
+          );
+
+        expect(
+            wrapper.find('iframe').node.getAttribute('src')
+        ).to.match(/helpdesk_ticket\[requester\]=test@example.com/);
     });
 });
