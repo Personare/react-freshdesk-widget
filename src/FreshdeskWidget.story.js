@@ -31,6 +31,15 @@ storiesOf('Incorporated', module)
         url={supportUrl}
         submitThanks="Thank you <3"
     />
+))
+
+.add('(autofill) property', () => (
+    <FreshdeskWidget
+        url={supportUrl}
+        submitThanks="Thank you <3"
+        autofill={{ requester: 'sample@domain.com' }}
+
+    />
 ));
 
 storiesOf('Pop-up', module)
