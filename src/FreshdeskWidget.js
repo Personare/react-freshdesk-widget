@@ -219,7 +219,7 @@ FreshdeskWidget.propTypes = {
     formTitle: PropTypes.string,
     submitThanks: PropTypes.string,
     formHeight: PropTypes.string,
-    autofill: PropTypes.objectOf(PropTypes.string),
+    autofill: PropTypes.object,
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
