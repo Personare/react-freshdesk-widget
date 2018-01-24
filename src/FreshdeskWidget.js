@@ -14,8 +14,13 @@ class FreshdeskWidget extends Component {
 
     componentWillMount() {
         const script = document.createElement('script');
+
         script.src = 'https://s3.amazonaws.com/assets.freshdesk.com/widget/freshwidget.js';
         script.type = 'text/javascript';
+        if (this.props.defer) {
+            script.setAttribute('defer', '');
+        }
+
         document.body.appendChild(script);
     }
 
@@ -199,6 +204,7 @@ FreshdeskWidget.propTypes = {
     submitThanks: PropTypes.string,
     formHeight: PropTypes.string,
     autofill: PropTypes.objectOf(PropTypes.string),
+    defer: PropTypes.bool,
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
@@ -217,7 +223,8 @@ FreshdeskWidget.defaultProps = {
     buttonPosition: 'top',
     buttonOffset: '235px',
     autofill: {},
-    children: null
+    children: null,
+    defer: null
 };
 
 export default FreshdeskWidget;

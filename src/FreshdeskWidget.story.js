@@ -40,7 +40,15 @@ storiesOf('Incorporated', module)
         autofill={{ requester: 'sample@domain.com' }}
 
     />
+))
+
+.add('(defer) property', () => (
+    <FreshdeskWidget
+        url={supportUrl}
+        defer
+    />
 ));
+
 
 storiesOf('Pop-up', module)
 .add('With default button', () => (
