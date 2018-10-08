@@ -40,6 +40,34 @@ storiesOf('Incorporated', module)
         autofill={{ requester: 'sample@domain.com' }}
 
     />
+))
+
+.add('(autofill) property', () => (
+    <FreshdeskWidget
+        url={supportUrl}
+        submitThanks="Thank you <3"
+        autofill={{ requester: 'sample@domain.com' }}
+
+    />
+))
+
+.add('(autofill) property', () => (
+    <FreshdeskWidget
+        url={supportUrl}
+        submitThanks="Thank you <3"
+        autofill={{ requester: 'sample@domain.com' }}
+
+    />
+))
+
+.add('(disable) property', () => (
+    <FreshdeskWidget
+        url={supportUrl}
+        submitThanks="Thank you <3"
+        autofill={{ requester: 'sample@domain.com' }}
+        disable={['requester']}
+
+    />
 ));
 
 storiesOf('Pop-up', module)

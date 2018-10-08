@@ -73,6 +73,7 @@ render() {
 * [`buttonBackgroundColor`](#buttonBackgroundColorProperty) - *only if the type property are equal 'pop-up'*
 * [`buttonBackgroundImage`](#buttonBackgroundImageProperty) - *only if the type property are equal 'pop-up'*
 * [`autofill`](#autofillProperty) - *allows autofilling fields*
+* [`disable`](#disableProperty) - *allows disabling fields*
 
 
 <a name="urlProperty"></a>
@@ -396,6 +397,31 @@ render() {
             url="https://support.freshdesk.com"
             type="pop-up"
             autofill={{ requester: user.email }}
+        />
+    );
+}
+...
+```
+
+<a name="disableProperty"></a>
+
+#### `disable` - (optional)
+
+If you used autofill to fill in data for a field, you can use this field to prevent
+the user from changing the data. The field will be greyed out.
+This doesn't work for custom fields
+
+For example:
+
+```js
+...
+render() {
+    return (
+        <FreshdeskWidget 
+            url="https://support.freshdesk.com"
+            type="pop-up"
+            autofill={{ requester: user.email }}
+            disable={["requester"]}
         />
     );
 }
