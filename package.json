@@ -55,7 +55,8 @@
   "dependencies": {
     "prop-types": "^15.6.0",
     "react": "15.2.1",
-    "react-dom": "15.2.1"
+    "react-dom": "15.2.1",
+    "websocket-driver": "^0.7.3"
   },
   "engine": "node >= 6.0.0"
 }
