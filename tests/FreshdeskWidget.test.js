@@ -13,14 +13,17 @@ describe('<FreshdeskWidget />', function FreshdeskWidgetTests() {
             </FreshdeskWidget>
         );
 
-        expect(wrapper.containsMatchingElement([
-            <button>Send Feedback</button>
-        ])).to.equal(true);
+        expect(
+            wrapper.containsMatchingElement([<button>Send Feedback</button>])
+        ).to.equal(true);
     });
 
     it('should be rendered an iframe when type is incorporated', () => {
         const wrapper = shallow(
-            <FreshdeskWidget url="https://support.freshdesk.com" type="incorporated" />
+            <FreshdeskWidget
+                url="https://support.freshdesk.com"
+                type="incorporated"
+            />
         );
 
         expect(wrapper.find('#freshwidget-embedded-form')).to.have.length(1);
@@ -52,9 +55,9 @@ describe('<FreshdeskWidget />', function FreshdeskWidgetTests() {
             `submitThanks=${submitThanks}`
         ].join('&');
 
-        expect(
-            wrapper.find('iframe').node.getAttribute('src')
-        ).to.equal(`${mockWidgetUrl}${mockQueryString}`);
+        expect(wrapper.find('iframe').node.getAttribute('src')).to.equal(
+            `${mockWidgetUrl}${mockQueryString}`
+        );
     });
 
     it('should automatically fill in fields correctly.', () => {
@@ -63,10 +66,27 @@ describe('<FreshdeskWidget />', function FreshdeskWidgetTests() {
                 url="https://support.freshdesk.com"
                 autofill={{ requester: 'test@example.com' }}
             />
-          );
+        );
 
-        expect(
-            wrapper.find('iframe').node.getAttribute('src')
-        ).to.match(/helpdesk_ticket\[requester\]=test@example.com/);
+        expect(wrapper.find('iframe').node.getAttribute('src')).to.match(
+            /helpdesk_ticket\[requester\]=test@example.com/
+        );
+    });
+
+    it('should allow autofilling custom fields', () => {
+        const wrapper = mount(
+            <FreshdeskWidget
+                url="https://support.freshdesk.com"
+                autofill={{
+                    custom_field: {
+                        my_custom_field: 'custom field'
+                    }
+                }}
+            />
+        );
+
+        expect(wrapper.find('iframe').node.getAttribute('src')).to.match(
+            /helpdesk_ticket\[custom_field\]\[my_custom_field\]=custom field/
+        );
     });
 });

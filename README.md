@@ -1,6 +1,6 @@
 # react-freshdesk-widget [![Build Status](https://scrutinizer-ci.com/g/Personare/react-freshdesk-widget/badges/build.png?b=master&s=6b40b4cc955a743a38efda66164a0ee2659d945f)](https://scrutinizer-ci.com/g/Personare/react-freshdesk-widget/build-status/master)
 
-> A component of React for use the Freshdesk Widget 
+> A component of React for use the Freshdesk Widget
 
 <br />
 
@@ -14,7 +14,7 @@
 
 [Check it live :)](https://personare.github.io/react-freshdesk-widget)
 
-## Installation 
+## Installation
 
 ```bash
 yarn add @personare/react-freshdesk-widget
@@ -112,7 +112,7 @@ For example:
 ...
 render() {
     return (
-        <FreshdeskWidget 
+        <FreshdeskWidget
             url="https://support.freshdesk.com"
             type="pop-up"
         />
@@ -135,7 +135,7 @@ For example:
 ...
 render() {
     return (
-        <FreshdeskWidget 
+        <FreshdeskWidget
             url="https://support.freshdesk.com"
             formTitle="This is a custom title"
         />
@@ -158,7 +158,7 @@ For example:
 ...
 render() {
     return (
-        <FreshdeskWidget 
+        <FreshdeskWidget
             url="https://support.freshdesk.com"
             formHeight="700px"
         />
@@ -181,7 +181,7 @@ For example:
 ...
 render() {
     return (
-        <FreshdeskWidget 
+        <FreshdeskWidget
             url="https://support.freshdesk.com"
             submitThanks="Thank you!!!"
         />
@@ -206,7 +206,7 @@ For example:
 ...
 render() {
     return (
-        <FreshdeskWidget 
+        <FreshdeskWidget
             url="https://support.freshdesk.com"
             type="pop-up"
             buttonType="image"
@@ -231,7 +231,7 @@ For example:
 ...
 render() {
     return (
-        <FreshdeskWidget 
+        <FreshdeskWidget
             url="https://support.freshdesk.com"
             type="pop-up"
             buttonType="text"
@@ -256,7 +256,7 @@ For example:
 ...
 render() {
     return (
-        <FreshdeskWidget 
+        <FreshdeskWidget
             url="https://support.freshdesk.com"
             type="pop-up"
             buttonType="text"
@@ -282,7 +282,7 @@ For example:
 ...
 render() {
     return (
-        <FreshdeskWidget 
+        <FreshdeskWidget
             url="https://support.freshdesk.com"
             type="pop-up"
             buttonType="text"
@@ -309,7 +309,7 @@ For example:
 ...
 render() {
     return (
-        <FreshdeskWidget 
+        <FreshdeskWidget
             url="https://support.freshdesk.com"
             type="pop-up"
             buttonType="text"
@@ -337,7 +337,7 @@ For example:
 ...
 render() {
     return (
-        <FreshdeskWidget 
+        <FreshdeskWidget
             url="https://support.freshdesk.com"
             type="pop-up"
             buttonType="text"
@@ -366,7 +366,7 @@ For example:
 ...
 render() {
     return (
-        <FreshdeskWidget 
+        <FreshdeskWidget
             url="https://support.freshdesk.com"
             type="pop-up"
             buttonType="image"
@@ -384,7 +384,7 @@ render() {
 #### `autofill` - (optional)
 
 If you want to fill any of the fields in with data from your application you
-can do that here. This doesn't work for custom fields.
+can do that here.
 
 For example:
 
@@ -392,10 +392,36 @@ For example:
 ...
 render() {
     return (
-        <FreshdeskWidget 
+        <FreshdeskWidget
             url="https://support.freshdesk.com"
             type="pop-up"
             autofill={{ requester: user.email }}
+        />
+    );
+}
+...
+```
+
+Custom fields can be used by first inspecting the generated form from Freshdesk to determine the field names.
+
+```html
+<input class=" required text span12" id="helpdesk_ticket_custom_field_some_field_123456" name="helpdesk_ticket[custom_field][some_field_123456]" size="30" type="text" value="" aria-required="true">
+```
+
+In the above field, the field name is `some_field_123456`, so the autofill property should look like
+
+```js
+...
+render() {
+    return (
+        <FreshdeskWidget
+            url="https://support.freshdesk.com"
+            type="pop-up"
+            autofill={{
+                custom_field: {
+                    some_field_123456: "value"
+                }
+            }}
         />
     );
 }

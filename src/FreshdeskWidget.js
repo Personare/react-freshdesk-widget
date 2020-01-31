@@ -3,6 +3,16 @@ import PropTypes from 'prop-types';
 
 require('./object-values-entries-polyfill');
 
+function convertToQueryString(prefix, value) {
+    if (typeof value === 'object') {
+        return Object.entries(value)
+            .map(([field, val]) =>
+                convertToQueryString(`${prefix}[${field}]`, val)
+            )
+            .join('&');
+    }
+    return `${prefix}=${value}`;
+}
 class FreshdeskWidget extends Component {
     constructor(props) {
         super(props);
@@ -14,7 +24,8 @@ class FreshdeskWidget extends Component {
 
     componentWillMount() {
         const script = document.createElement('script');
-        script.src = 'https://s3.amazonaws.com/assets.freshdesk.com/widget/freshwidget.js';
+        script.src =
+            'https://s3.amazonaws.com/assets.freshdesk.com/widget/freshwidget.js';
         script.type = 'text/javascript';
         document.body.appendChild(script);
     }
@@ -44,18 +55,21 @@ class FreshdeskWidget extends Component {
             formTitle,
             formHeight,
             submitThanks,
-            autofill,
+            autofill
         } = this.props;
 
-        const autofills = Object.entries(autofill).
-            map(([field, value]) => (`helpdesk_ticket[${field}]=${value}`));
+        const autofills = Object.entries(autofill).map(
+            ([field, value]) => `helpdesk_ticket[${field}]=${value}`
+        );
 
         const queryString = [
             '&widgetType=popup',
             `formTitle=${formTitle}`,
             `submitThanks=${submitThanks}`,
-            ...autofills,
-        ].join('&');
+            ...autofills
+        ]
+            .filter(e => e)
+            .join('&');
 
         const params = {
             utf8: '✓',
@@ -103,15 +117,16 @@ class FreshdeskWidget extends Component {
             autofill
         } = this.props;
 
-        const autofills = Object.entries(autofill).
-            map(([field, value]) => (`helpdesk_ticket[${field}]=${value}`));
+        const autofills = convertToQueryString('helpdesk_ticket', autofill);
 
         const queryString = [
             '&widgetType=popup',
             `formTitle=${formTitle}`,
             `submitThanks=${submitThanks}`,
-            ...autofills,
-        ].join('&');
+            autofills
+        ]
+            .filter(e => e)
+            .join('&');
 
         const params = {
             utf8: '✓',
@@ -132,16 +147,21 @@ class FreshdeskWidget extends Component {
 
         window.FreshWidget.init('', params);
 
-        return <div id="freshdesk"></div>;
+        return <div id="freshdesk" />;
     }
 
     renderIncorporated() {
-        const { url, formTitle, formHeight, submitThanks, autofill } = this.props;
+        const {
+            url,
+            formTitle,
+            formHeight,
+            submitThanks,
+            autofill
+        } = this.props;
 
         const widgetUrl = `${url}/widgets/feedback_widget/new?`;
 
-        const autofills = Object.entries(autofill).
-            map(([field, value]) => (`helpdesk_ticket[${field}]=${value}`));
+        const autofills = convertToQueryString('helpdesk_ticket', autofill);
 
         const queryString = [
             'widgetType=embedded',
@@ -149,8 +169,10 @@ class FreshdeskWidget extends Component {
             `formTitle=${formTitle}`,
             `formHeight=${formHeight}`,
             `submitThanks=${submitThanks}`,
-            ...autofills,
-        ].join('&');
+            autofills
+        ]
+            .filter(e => e)
+            .join('&');
 
         return (
             <div>
@@ -174,7 +196,7 @@ class FreshdeskWidget extends Component {
             return this.renderIncorporated();
         }
 
-        const hasChildElement = (React.Children.count(this.props.children) >= 1);
+        const hasChildElement = React.Children.count(this.props.children) >= 1;
 
         if (hasChildElement) {
             return this.renderWithChildren();
@@ -183,7 +205,6 @@ class FreshdeskWidget extends Component {
         return this.renderPopUp();
     }
 }
-
 
 FreshdeskWidget.propTypes = {
     url: PropTypes.string.isRequired,
@@ -198,7 +219,7 @@ FreshdeskWidget.propTypes = {
     formTitle: PropTypes.string,
     submitThanks: PropTypes.string,
     formHeight: PropTypes.string,
-    autofill: PropTypes.objectOf(PropTypes.string),
+    autofill: PropTypes.object,
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
@@ -208,7 +229,8 @@ FreshdeskWidget.propTypes = {
 FreshdeskWidget.defaultProps = {
     type: 'incorporated',
     formTitle: 'Help and support',
-    submitThanks: 'Thank you, one of our representatives will respond to you soon! =)',
+    submitThanks:
+        'Thank you, one of our representatives will respond to you soon! =)',
     formHeight: '500px',
     buttonType: 'text',
     buttonText: 'Support',
