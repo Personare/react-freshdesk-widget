@@ -45,16 +45,20 @@ class FreshdeskWidget extends Component {
             formHeight,
             submitThanks,
             autofill,
+            disable,
         } = this.props;
 
         const autofills = Object.entries(autofill).
             map(([field, value]) => (`helpdesk_ticket[${field}]=${value}`));
+
+        const disables = disable.map(field => `disable[${field}]=true`);
 
         const queryString = [
             '&widgetType=popup',
             `formTitle=${formTitle}`,
             `submitThanks=${submitThanks}`,
             ...autofills,
+            ...disables,
         ].join('&');
 
         const params = {
@@ -100,17 +104,21 @@ class FreshdeskWidget extends Component {
             formTitle,
             submitThanks,
             formHeight,
-            autofill
+            autofill,
+            disable,
         } = this.props;
 
         const autofills = Object.entries(autofill).
             map(([field, value]) => (`helpdesk_ticket[${field}]=${value}`));
+
+        const disables = disable.map(field => `disable[${field}]=true`);
 
         const queryString = [
             '&widgetType=popup',
             `formTitle=${formTitle}`,
             `submitThanks=${submitThanks}`,
             ...autofills,
+            ...disables,
         ].join('&');
 
         const params = {
@@ -136,12 +144,14 @@ class FreshdeskWidget extends Component {
     }
 
     renderIncorporated() {
-        const { url, formTitle, formHeight, submitThanks, autofill } = this.props;
+        const { url, formTitle, formHeight, submitThanks, autofill, disable } = this.props;
 
         const widgetUrl = `${url}/widgets/feedback_widget/new?`;
 
         const autofills = Object.entries(autofill).
             map(([field, value]) => (`helpdesk_ticket[${field}]=${value}`));
+
+        const disables = disable.map(field => `disable[${field}]=true`);
 
         const queryString = [
             'widgetType=embedded',
@@ -150,6 +160,7 @@ class FreshdeskWidget extends Component {
             `formHeight=${formHeight}`,
             `submitThanks=${submitThanks}`,
             ...autofills,
+            ...disables,
         ].join('&');
 
         return (
@@ -199,6 +210,7 @@ FreshdeskWidget.propTypes = {
     submitThanks: PropTypes.string,
     formHeight: PropTypes.string,
     autofill: PropTypes.objectOf(PropTypes.string),
+    disable: PropTypes.arrayOf(PropTypes.string),
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
@@ -217,6 +229,7 @@ FreshdeskWidget.defaultProps = {
     buttonPosition: 'top',
     buttonOffset: '235px',
     autofill: {},
+    disable: [],
     children: null
 };
 
