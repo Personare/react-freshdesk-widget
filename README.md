@@ -73,7 +73,7 @@ render() {
 * [`buttonBackgroundColor`](#buttonBackgroundColorProperty) - *only if the type property are equal 'pop-up'*
 * [`buttonBackgroundImage`](#buttonBackgroundImageProperty) - *only if the type property are equal 'pop-up'*
 * [`autofill`](#autofillProperty) - *allows autofilling fields*
-
+* [`defer`](#defer) - *default: false*
 
 <a name="urlProperty"></a>
 
@@ -396,6 +396,29 @@ render() {
             url="https://support.freshdesk.com"
             type="pop-up"
             autofill={{ requester: user.email }}
+        />
+    );
+}
+...
+```
+
+<a name="defer"></a>
+
+#### `defer` - (optional)
+
+Set this flag to true, if you'd like to defer the scripts fetching and 
+execution (otherwise render-blocking).
+
+For example:
+
+```js
+...
+render() {
+    return (
+        <FreshdeskWidget 
+            url="https://support.freshdesk.com"
+            type="pop-up"
+            defer
         />
     );
 }
