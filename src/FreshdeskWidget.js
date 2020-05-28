@@ -6,6 +6,9 @@ require('./object-values-entries-polyfill');
 class FreshdeskWidget extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            freshdeskScriptLoaded: false
+        };
 
         this.renderPopUp = this.renderPopUp.bind(this);
         this.renderWithChildren = this.renderWithChildren.bind(this);
@@ -16,6 +19,7 @@ class FreshdeskWidget extends Component {
         const script = document.createElement('script');
         script.src = 'https://s3.amazonaws.com/assets.freshdesk.com/widget/freshwidget.js';
         script.type = 'text/javascript';
+        script.onload = () => { this.setState({freshdeskScriptLoaded: true}); };
         document.body.appendChild(script);
     }
 
@@ -168,6 +172,9 @@ class FreshdeskWidget extends Component {
     }
 
     render() {
+        if (!this.state.freshdeskScriptLoaded)
+            return null; // can't render anything before the script is loaded
+
         const { type } = this.props;
 
         if (type === 'incorporated') {
