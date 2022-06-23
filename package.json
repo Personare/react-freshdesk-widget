@@ -46,7 +46,7 @@
     "eslint-plugin-jsx-a11y": "^2.0.1",
     "eslint-plugin-react": "^5.2.2",
     "husky": "^0.11.5",
-    "jsdom": "^9.4.1",
+    "jsdom": "^16.5.0",
     "mocha": "^2.5.3",
     "raw-loader": "^0.5.1",
     "react-addons-test-utils": "15.2.1",
